@@ -1,8 +1,8 @@
 #!/bin/bash
 
 module_name="edr_msisdn_update"
-main_module="" 		## keep it empty "" if there is no main module 
-log_level="INFO" 	## INFO, DEBUG, ERROR
+main_module="etl_edr" #keep it empty "" if there is no main module 
+log_level="INFO" # INFO, DEBUG, ERROR
 
 ########### DO NOT CHANGE ANY CODE OR TEXT AFTER THIS LINE #########
 
@@ -28,10 +28,9 @@ else  ## No process running
   fi
 
   mkdir -p $log_path 
-
   cd ${build_path}
-
+  
   echo "Starting ${module_name} module..."
-  java -Dlog4j.configurationFile=./log4j2.xml -Dlog_level=${log_level} -Dlog_path=${log_path} -Dmodule_name=${module_name} -Dspring.config.location=file:${commonConfigurationFilePath} -jar $build 1>/dev/null 2>${log_path}/${module_name}.error &
+  java -Dlog4j.configurationFile=./log4j2.xml -Dlog.level=${log_level} -Dlog.path=${log_path} -Dmodule.name=${module_name} -Dspring.config.location=file:${commonConfigurationFilePath} -jar $build 1>/dev/null 2>${log_path}/${module_name}.error &
 
 fi
